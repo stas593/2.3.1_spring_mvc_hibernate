@@ -7,6 +7,14 @@
     <title></title>
 </head>
     <body>
-        <p>Привет!</p>
+        <h2>Пользователи</h2>
+        <th:block th:each="us : ${users}">
+            <th:block th:text="${us.getName()}"></th:block>
+            <th:block th:text="${us.getSurname()}"></th:block>
+            <th:block th:text="${us.getMail()}"></th:block>
+            <th:block th:text="${us.getAge()}"></th:block>
+            <th:block></th:block>
+            <br>
+        </th:block>
     </body>
 </html>
