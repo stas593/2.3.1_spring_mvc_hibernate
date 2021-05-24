@@ -19,14 +19,18 @@ public class UserServiceImpl implements UserService {
         ud.addUser(user);
     }
 
+    public User getUser(long id){
+        return ud.getUser(id);
+    }
+
     @Override
     public void deleteUser(long id) {
         ud.deleteUser(id);
     }
 
     @Override
-    public void updateUser(long id, String name, String surname, String mail, int age) {
-        ud.updateUser(id, name, surname, mail, age);
+    public void updateUser(User user) {
+        ud.updateUser(user);
     }
 
     @Override

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.dao.UserDao;
 import web.models.User;
 import web.service.UserService;
 
@@ -20,12 +20,33 @@ public class usersInfo {
     public String postInfo(Model model){
         List<User> users = us.getAllUsers();
         model.addAttribute("users", users);
+        model.addAttribute("user", new User());
         return "index";
     }
 
-    @GetMapping("/deleteUser")
-    public String deleteUser(@RequestParam int id){
+
+    @GetMapping(value = "/deleteUser")
+    public String deleteUser(@RequestParam("id") int id){
         us.deleteUser(id);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/addUser")
+    public String addUser(@ModelAttribute User user){
+        us.addUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/updateUser")
+    public String updateUser(@RequestParam("id") int id, Model model){
+        User user = us.getUser(id);
+        model.addAttribute("userUp", user);
+        return "update-user";
+    }
+
+    @GetMapping(value = "/saveUser")
+    public String updateUser(@ModelAttribute User user){
+        us.updateUser(user);
         return "redirect:/";
     }
 }
