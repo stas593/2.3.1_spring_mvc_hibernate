@@ -12,7 +12,7 @@ import web.service.UserService;
 import java.util.List;
 
 @Controller
-public class usersInfo {
+public class UsersInfo {
     @Autowired
     private UserService us;
 
@@ -26,7 +26,7 @@ public class usersInfo {
 
 
     @GetMapping(value = "/deleteUser")
-    public String deleteUser(@RequestParam("id") int id){
+    public String deleteUser(@RequestParam("id") long id){
         us.deleteUser(id);
         return "redirect:/";
     }
@@ -38,7 +38,7 @@ public class usersInfo {
     }
 
     @GetMapping(value = "/updateUser")
-    public String updateUser(@RequestParam("id") int id, Model model){
+    public String updateUser(@RequestParam("id") long id, Model model){
         User user = us.getUser(id);
         model.addAttribute("userUp", user);
         return "update-user";
