@@ -46,6 +46,7 @@ public class UsersInfo {
 
     @GetMapping(value = "/saveUser")
     public String updateUser(@ModelAttribute User user){
+        System.out.println(user.toString());
         us.updateUser(user);
         return "redirect:/";
     }

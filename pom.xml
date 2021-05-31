@@ -28,7 +28,6 @@
       <version>5.3.7</version>
     </dependency>
 
-
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -84,6 +83,11 @@
       <groupId> org.springframework </groupId>
       <artifactId> spring-tx </artifactId>
       <version> 5.2.9.RELEASE </version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>5.2.0.RELEASE</version>
     </dependency>
 
   </dependencies>
