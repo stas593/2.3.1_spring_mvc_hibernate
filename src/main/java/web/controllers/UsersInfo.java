@@ -3,9 +3,7 @@ package web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import web.models.User;
 import web.service.UserService;
 
@@ -48,5 +46,10 @@ public class UsersInfo {
     public String updateUser(@ModelAttribute User user){
         us.updateUser(user);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
     }
 }
