@@ -4,22 +4,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import web.models.Role;
 import web.models.User;
-import web.service.UserService;
+import web.service.UserDetailService;
 
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 public class UsersInfo {
+
     @Autowired
-    private UserService us;
+    private UserDetailService us;
 
     @GetMapping(value = "/")
-    public String postInfo(Model model){
-        List<User> users = us.getAllUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("user", new User());
+    public String mainStr(Principal principal, Model model){
+        model.addAttribute("principal", principal);
         return "index";
+    }
+
+    @GetMapping(value = "/UsersInfo")
+    public String postInfo(Model model){
+        model.addAttribute("roles", us.getAllRoles());
+        model.addAttribute("users", us.getAllUsers());
+        model.addAttribute("user", new User());
+        model.addAttribute("role", new Role());
+        System.out.println(us.findUserByLogin("2").toString());
+        return "usersInfo";
+    }
+
+    @GetMapping(value = "/User")
+    public String UserStr(Model model, Principal principal){
+        model.addAttribute("User", us.findUserByLogin(principal.getName()));
+        return "user";
     }
 
 
@@ -30,21 +46,30 @@ public class UsersInfo {
     }
 
     @GetMapping(value = "/addUser")
-    public String addUser(@ModelAttribute User user){
+    public String addUser(@ModelAttribute("user") User user, @RequestParam(name = "roleName") String roleName){
+        user.addRoleToUser(us.getRoleByName(roleName));
         us.addUser(user);
         return "redirect:/";
     }
 
     @GetMapping(value = "/updateUser")
     public String updateUser(@RequestParam("id") long id, Model model){
+        model.addAttribute("roles", us.getAllRoles());
         User user = us.getUser(id);
         model.addAttribute("userUp", user);
         return "update-user";
     }
 
     @GetMapping(value = "/saveUser")
-    public String updateUser(@ModelAttribute User user){
-        us.updateUser(user);
+    public String updateUser(@ModelAttribute(name = "userUp") User user, @RequestParam(name = "roleName", required = false) String roleName){
+        System.out.println(user.toString());
+        if(roleName == null){
+            user.setRoles(us.getUser(user.getId()).getRoles());
+            us.updateUser(user);
+        } else {
+            user.addRoleToUser(us.getRoleByName(roleName));
+            us.updateUser(user);
+        }
         return "redirect:/";
     }
 
