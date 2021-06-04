@@ -18,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import web.config.handler.LoginSuccessHandler;
 import web.dao.UserDao;
 import web.models.User;
+import web.service.MyUserDetailsService;
 import web.service.UserDetailService;
 
 @Configuration

@@ -117,8 +117,6 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        System.out.println("Roles:");
-        roles.stream().forEach( s1 -> System.out.println(s1.getAuthority()));
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -141,7 +139,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.name;
+        return this.mail;
     }
 
     @Override
