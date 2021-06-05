@@ -25,6 +25,7 @@
             <td th:each="us1 : ${User.roles}"><p th:text="${#strings.replace(us1.nameRole, 'ROLE_', '')}"></p></td>
         </tr>
     </table>
+    <th:block><a th:href="@{/}">Вернуться на главную страницу</a></th:block>
     <br>
     <th:block><a th:href="@{/logout}">Выйти</a></th:block>
 

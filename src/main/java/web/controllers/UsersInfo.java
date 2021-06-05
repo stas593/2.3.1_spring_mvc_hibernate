@@ -42,14 +42,14 @@ public class UsersInfo {
     @GetMapping(value = "/deleteUser")
     public String deleteUser(@RequestParam("id") long id){
         us.deleteUser(id);
-        return "redirect:/";
+        return "redirect:/UsersInfo";
     }
 
     @GetMapping(value = "/addUser")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(name = "roleName") String roleName){
         user.addRoleToUser(us.getRoleByName(roleName));
         us.addUser(user);
-        return "redirect:/";
+        return "redirect:/UsersInfo";
     }
 
     @GetMapping(value = "/updateUser")
@@ -70,7 +70,7 @@ public class UsersInfo {
             user.addRoleToUser(us.getRoleByName(roleName));
             us.updateUser(user);
         }
-        return "redirect:/";
+        return "redirect:/UsersInfo";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
