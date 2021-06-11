@@ -32,14 +32,14 @@ public class Admin {
     @GetMapping(value = "/deleteUser")
     public String deleteUser(@RequestParam("id") long id){
         us.deleteUser(id);
-        return "redirect: /admin";
+        return "redirect:/admin";
     }
 
     @GetMapping(value = "/addUser")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(name = "roleName") String roleName){
         user.addRoleToUser(rs.getRoleByName(roleName));
         us.addUser(user);
-        return "redirect: /admin";
+        return "redirect:/admin";
     }
 
     @GetMapping(value = "/updateUser")
@@ -60,6 +60,6 @@ public class Admin {
             user.addRoleToUser(rs.getRoleByName(roleName));
             us.updateUser(user);
         }
-        return "redirect: /admin";
+        return "redirect:/admin";
     }
 }
