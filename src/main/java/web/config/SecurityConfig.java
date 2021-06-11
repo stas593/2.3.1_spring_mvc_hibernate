@@ -3,37 +3,26 @@ package web.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import web.config.handler.LoginSuccessHandler;
-import web.dao.UserDao;
-import web.models.User;
-import web.service.MyUserDetailsService;
-import web.service.UserDetailService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception { ;
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
-
 
 
     @Override
@@ -67,8 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                .antMatchers("/UsersInfo").access("hasAnyRole('ROLE_ADMIN')")
-                .antMatchers("/").authenticated();
+                .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/user").permitAll();
 
     }
 

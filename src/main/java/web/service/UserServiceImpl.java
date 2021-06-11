@@ -2,6 +2,9 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import web.dao.RoleDao;
 import web.dao.UserDao;
@@ -13,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class UserDetailServiceImpl implements UserDetailService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao ud;
@@ -33,13 +36,9 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
+    @Transactional
     public User findUserByLogin(String userName) {
         return ud.findByLogin(userName);
-    }
-
-    @Override
-    public Role getRoleByName(String nameRole) {
-        return rd.getRoleByName(nameRole);
     }
 
     @Override
@@ -60,10 +59,6 @@ public class UserDetailServiceImpl implements UserDetailService {
         return ud.getAllUsers();
     }
 
-    @Override
-    public List<Role> getAllRoles() {
-        return rd.getAllRoles();
-    }
 
     @Override
     @Transactional
@@ -75,5 +70,15 @@ public class UserDetailServiceImpl implements UserDetailService {
     @Transactional
     public Set<Role> getAllRolesFromUser(long userId) {
         return ud.getAllRolesFromUser(userId);
+    }
+
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User myUser = ud.findByLogin(s);
+        if (s == null) {
+            throw new UsernameNotFoundException("Unknown user: "+s);
+        }
+        return myUser;
     }
 }
