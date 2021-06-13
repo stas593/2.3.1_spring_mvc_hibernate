@@ -62,9 +62,4 @@ public class UserDaoImpl implements UserDao {
         User user = entityManager.find(User.class, userId);
         user.addRoleToUser(role);
     }
-
-    @Override
-    public Set<Role> getAllRolesFromUser(long userId) {
-        return entityManager.find(User.class, userId).getRoles();
-    }
 }

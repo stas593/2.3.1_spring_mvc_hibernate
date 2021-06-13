@@ -4,6 +4,7 @@ import web.models.Role;
 import web.models.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleDao {
     void addRole(Role role);
@@ -12,5 +13,6 @@ public interface RoleDao {
     void deleteRole(long id);
     void updateRole(Role role);
     List<Role> getAllRoles();
+    Set<Role> getAllRolesFromUser(long userId);
 
 }

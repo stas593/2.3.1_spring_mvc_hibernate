@@ -15,5 +15,4 @@ public interface UserDao {
     void updateUser(User user);
     List<User> getAllUsers();
     void addRoleToUser(long userId, Role role);
-    Set<Role> getAllRolesFromUser(long userId);
 }

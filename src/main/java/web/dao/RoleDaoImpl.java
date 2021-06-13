@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.From;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class RoleDaoImpl implements RoleDao{
@@ -48,5 +49,10 @@ public class RoleDaoImpl implements RoleDao{
     @Override
     public List<Role> getAllRoles() {
         return entityManager.createQuery("FROM Role", Role.class).getResultList();
+    }
+
+    @Override
+    public Set<Role> getAllRolesFromUser(long userId) {
+        return entityManager.find(User.class, userId).getRoles();
     }
 }

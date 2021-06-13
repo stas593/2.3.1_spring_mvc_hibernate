@@ -12,7 +12,7 @@ public class Login {
         return "login";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "")
     public String Startpage() {
         return "redirect: /admin";
     }
