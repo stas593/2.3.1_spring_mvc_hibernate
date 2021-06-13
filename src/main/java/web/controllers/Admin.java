@@ -50,7 +50,7 @@ public class Admin {
         return "update-user";
     }
 
-    @GetMapping(value = "/saveUser")
+    @RequestMapping(value = "/saveUser")
     public String updateUser(@ModelAttribute(name = "userUp") User user, @RequestParam(name = "roleName", required = false) String roleName){
         System.out.println(user.toString());
         if(roleName == null){
