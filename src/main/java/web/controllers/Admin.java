@@ -19,7 +19,7 @@ public class Admin {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public String postInfo(Model model){
         model.addAttribute("roles", roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
@@ -29,20 +29,20 @@ public class Admin {
     }
 
 
-    @RequestMapping(value = "/deleteUser")
+    @GetMapping(value = "/deleteUser")
     public String deleteUser(@RequestParam("id") long id){
         userService.deleteUser(id);
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    @PostMapping(value = "/addUser")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(name = "roleName") String roleName){
         user.addRoleToUser(roleService.getRoleByName(roleName));
         userService.addUser(user);
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    @GetMapping(value = "/updateUser")
     public String updateUser(@RequestParam("id") long id, Model model){
         model.addAttribute("roles", roleService.getAllRoles());
         User user = userService.getUser(id);
@@ -50,7 +50,7 @@ public class Admin {
         return "update-user";
     }
 
-    @RequestMapping(value = "/saveUser")
+    @PostMapping(value = "/saveUser")
     public String updateUser(@ModelAttribute(name = "userUp") User user, @RequestParam(name = "roleName", required = false) String roleName){
         System.out.println(user.toString());
         if(roleName == null){

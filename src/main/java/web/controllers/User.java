@@ -16,7 +16,7 @@ public class User {
     @Autowired
     private UserService us;
 
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public String UserStr(Model model, Principal principal){
         model.addAttribute("User", us.findUserByLogin(principal.getName()));
         return "user";
